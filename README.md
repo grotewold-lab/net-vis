@@ -8,6 +8,29 @@ This tool is flexible and extensible, supporting a variety of different use-case
  - generate functional standalone html pages that can be used offline
  - customizable graphics and behavior
 
+
+## Example images (click links for interactive demos)
+
+### gene regulatory network, with default graphics and behavior
+
+[example source code here](simple_example.html)
+
+![default gene-reg network](readme_images/simple.png)
+
+### gene regulatory network, with custom graphics and behavior
+
+[live interactive demo here](https://grotewold-lab.github.io/network-visualization)
+
+[example source code here](advanced_example.html)
+
+![custom gene-reg network](readme_images/advanced.png)
+
+### dynamically-generated gene regulatory network with server-side processing and custom graphics/behavior
+
+[live interactive demo here](https://eglab-dev.com/pdicollection) (visualization appears at the bottom when you click "Filter PDIs")
+
+![dynamic gene-reg network](readme_images/ajax.png)
+
 ## Basic Usage
 
 1. Create an html page with a canvas element to contain the visualization
