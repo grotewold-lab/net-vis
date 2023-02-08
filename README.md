@@ -27,7 +27,7 @@ This tool is flexible and extensible, supporting a variety of different use-case
 
 ### dynamically-generated gene regulatory network with server-side processing and custom graphics/behavior
 
-[live interactive demo here](https://eglab-dev.com/pdicollection) (visualization appears at the bottom when you click "Filter PDIs")
+[live interactive demo here](https://eglab-dev.com/network)
 
 ![dynamic gene-reg network](readme_images/ajax.png)
 
