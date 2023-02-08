@@ -25,7 +25,7 @@ This tool is flexible and extensible, supporting a variety of different use-case
 
 ![custom gene-reg network](readme_images/advanced.png)
 
-### dynamically-generated gene regulatory network with server-side processing and custom graphics/behavior
+### custom graphics and behavior + server-side processing
 
 [live interactive demo here](https://eglab-dev.com/network)
 
