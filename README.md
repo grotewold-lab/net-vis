@@ -1,5 +1,7 @@
 ## Network Visualization Tool
 
+[Demo](https://netvis.grotewold-lab.com/)
+
 A browser-based, interactive network visualization tool inspired by [giotto-mapper-pie-nodes](https://github.com/sperciva/giotto-mapper-pie-nodes)
 
 This tool is flexible and extensible, supporting a variety of different use-cases
@@ -9,7 +11,7 @@ This tool is flexible and extensible, supporting a variety of different use-case
  - customizable graphics and behavior
 
 
-## Example images (click links for interactive demos)
+## Example images
 
 ### gene regulatory network, with default graphics and behavior
 
@@ -19,17 +21,9 @@ This tool is flexible and extensible, supporting a variety of different use-case
 
 ### gene regulatory network, with custom graphics and behavior
 
-[live interactive demo here](https://grotewold-lab.github.io/network-visualization)
-
 [example source code here](advanced_example.html)
 
 ![custom gene-reg network](readme_images/advanced.png)
-
-### custom graphics and behavior + server-side processing
-
-[live interactive demo here](https://eglab-dev.com/network)
-
-![dynamic gene-reg network](readme_images/ajax.png)
 
 ## Basic Usage
 
