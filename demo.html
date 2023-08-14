@@ -1,0 +1,138 @@
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fabric.js/5.3.1/fabric.min.js" integrity="sha512-CeIsOAsgJnmevfCi2C7Zsyy6bQKi43utIjdA87Q0ZY84oDqnI0uwfM9+bKiIkI75lUeI00WG/+uJzOmuHlesMA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="fancy-net-vis.js"></script>
+<br>
+<br>
+
+<h1>Netvis</h1>
+
+Input table with two columns
+<br>
+(separated by whitespace or commas)
+<br>
+ (<a href="javascript:example();">example</a>)
+<br>
+<textarea id="input_area" name="input_area" cols="25" rows="10"></textarea>
+<br>
+
+
+<br>
+<br>
+<button onclick="submit()">Submit</button>
+<a id="save_svg" style="display:none" href='javascript:export_svg()'>save as SVG</a>
+<br>
+<br>
+<div id="hovermenu"></div>
+<div id="my_container" type="display:block"></div>  
+<style>
+    #hovermenu {
+        position: absolute;
+        top: 0px;
+        left: -300px;
+        display: none;
+        font-family: sans-serif;
+        font-size: 12px;
+        width: 200px;
+        height: auto;
+        background-color: ￼#555;
+        color: ￼#fff;
+        text-align: center;
+        border-radius: 6px;
+        padding: 8px 6px;
+        position: absolute;
+        z-index: 100;
+        opacity: 1.0;
+    }
+
+    #hovermenu.visible {
+        display: block;
+    }
+</style>
+
+
+<script>
+    var $ = jQuery.noConflict();
+
+    function example(){
+        $('#input_area').val('Bob\tAlice\nAlice\tChris')
+    }
+    
+    function export_svg() {
+        download('regnet.svg', ctx.toSVG())
+	}
+    
+    function download(filename, text) {
+        var pom = document.createElement('a');
+        pom.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
+        pom.setAttribute('download', filename);
+
+        if (document.createEvent) {
+            var event = document.createEvent('MouseEvents');
+            event.initEvent('click', true, true);
+            pom.dispatchEvent(event);
+        } else {
+            pom.click();
+        }
+    }
+
+    function submit() {
+        
+        // start building json object for netvis
+        var netvis_data = {
+            nodes: [],
+            edges: []
+        }
+        
+        // iterate over input lines
+        var lines = $('#input_area').val().split(/\r?\n/);
+        for( var i = 0 ; i < lines.length ; i++ ){
+            var parts = lines[i].split(/[ ,\t]+/);
+            
+            // add new nodes if necessary
+            add_node(parts[0],netvis_data.nodes)
+            add_node(parts[1],netvis_data.nodes)
+            
+            // add one edge
+            netvis_data.edges.push({ 
+                gene_id: parts[0], 
+                target_id: parts[1], 
+                udp_hash: get_udp_hash(parts[0],parts[1]) 
+            })
+        }
+        
+        console.log( netvis_data )
+        document.getElementById('my_container').innerHTML = '<canvas id="my_canvas" width="800" height="600">'
+        canvas = document.getElementById('my_canvas')
+        ctx = new fabric.Canvas('my_canvas');
+        show_network_with_static_json(ctx,800,600,netvis_data)
+        add_mouse_listener_to_canvas(canvas,ctx);
+        $('#save_svg').show()
+    }
+    
+    // add a node with the given name, if necessary
+    function add_node(name,nodelist){
+        for( var i = 0 ; i < nodelist.length ; i++ ){
+            if( nodelist[i].gene_id == name ){
+                return   
+            }
+        }
+        nodelist.push({gene_id: name})
+    }
+    
+    function get_udp_hash(source_id,target_id){
+        return hash(source_id) + hash(target_id)
+    }
+    
+    function hash( data ) {
+        var hash = 0,i, chr;
+        if (data.length === 0) return hash;
+        for (i = 0; i < data.length; i++) {
+            chr = data.charCodeAt(i);
+            hash = ((hash << 5) - hash) + chr;
+            hash |= 0; // Convert to 32bit integer
+        }
+        return hash;
+    }
+                
+</script>
